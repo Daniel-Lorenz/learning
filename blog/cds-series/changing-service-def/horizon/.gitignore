@@ -1,0 +1,12 @@
+node_modules
+
+.project
+.settings
+.classpath
+
+.vscode
+
+*.log
+
+srv/src/gen/
+srv/target/

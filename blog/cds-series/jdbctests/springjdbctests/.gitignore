@@ -1,0 +1,15 @@
+node_modules
+
+.project
+.settings
+.classpath
+
+.vscode
+
+*.log
+
+gen/
+target/
+.flattened-pom.xml
+
+edmx/
