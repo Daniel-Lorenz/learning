@@ -37,6 +37,31 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>1.25.1</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>1.25.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq</artifactId>
+			<version>3.13.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.2.8.RELEASE</version>
+		</dependency>
+		
+		
+		
+
 		<dependency>
 			<groupId>customer</groupId>
 			<artifactId>springjdbctests</artifactId>
