@@ -2,10 +2,15 @@ package com.daniellorenz.exploration;
 
 import java.util.*;
 import java.util.stream.*;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.daniellorenz.repository.Application;
 import com.sap.cds.ql.cqn.*;
 import com.sap.cds.reflect.*;
+import com.sap.cds.impl.parser.TokenParser;
 import com.sap.cds.reflect.impl.CdsElementBuilder;
 import com.sap.cds.services.impl.utils.CdsModelUtils;
 
@@ -56,5 +61,24 @@ public class CdsModelSpringTest {
         ResolvedSegment segment = result.iterator().next();
         
     }
+    
+    @Test
+        public void testCdsModel() throws IOException {
+                var optionalView = cdsModel.findEntity("tm.exec.TestActionsView");
+                Assert.assertTrue(optionalView.isPresent());
+                var view = optionalView.get();
+                CqnSelect select = view.query().get();
+                CqnSource from = select.from();
+                Assert.assertTrue(from.isJoin());
+                CqnJoin join = from.asJoin();
+                join.left();
+                join.right();
+                select.columns();
+        }
+
+    private CqnToken parseToken(String cqn) throws IOException {
+            JsonNode valObject = mapper.readTree(cqn.replace("'", "\""));
+            return TokenParser.parse(valObject);
+	}
     
 }
