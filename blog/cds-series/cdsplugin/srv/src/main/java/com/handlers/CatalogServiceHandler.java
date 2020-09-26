@@ -1,7 +1,10 @@
 package com.handlers;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.sap.cds.Struct;
 import org.springframework.stereotype.Component;
 
 import com.sap.cds.services.cds.CdsService;
