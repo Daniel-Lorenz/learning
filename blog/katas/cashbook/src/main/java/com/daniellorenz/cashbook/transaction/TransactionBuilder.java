@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.Clock;
 import java.time.Instant;
-import java.time.OffsetDateTime;
 
 @Component
 public class TransactionBuilder {
@@ -15,7 +14,7 @@ public class TransactionBuilder {
         this.clock = clock;
     }
 
-    Transaction transactionWith(Double amount, String description){
+    Transaction transactionWith(Double amount, String description) {
         Instant date = clock.instant();
         return new Transaction(amount, description, date);
     }
