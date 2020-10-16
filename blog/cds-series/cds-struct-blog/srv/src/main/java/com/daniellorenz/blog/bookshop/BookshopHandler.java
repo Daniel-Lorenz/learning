@@ -18,7 +18,6 @@ import java.util.*;
 @ServiceName(BookService_.CDS_NAME)
 public class BookshopHandler implements EventHandler {
 
-
     @On(event = CdsService.EVENT_READ, entity = Books_.CDS_NAME)
     public void proposeMapAsResult(CdsReadEventContext context) {
         Map<String, Object> dummy = new HashMap<>();
