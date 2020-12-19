@@ -1,4 +1,4 @@
-package com.daniellorenz.spring.rest.payroll;
+package com.daniellorenz.spring.rest.payroll.employee;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

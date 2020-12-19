@@ -1,4 +1,4 @@
-package com.daniellorenz.spring.rest.payroll;
+package com.daniellorenz.spring.rest.payroll.employee;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

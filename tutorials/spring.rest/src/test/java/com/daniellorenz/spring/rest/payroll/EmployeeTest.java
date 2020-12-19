@@ -1,5 +1,6 @@
 package com.daniellorenz.spring.rest.payroll;
 
+import com.daniellorenz.spring.rest.payroll.employee.Employee;
 import org.junit.jupiter.api.Test;
 
 class EmployeeTest {
