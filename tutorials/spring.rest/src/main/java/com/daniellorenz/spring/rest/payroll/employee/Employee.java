@@ -1,6 +1,8 @@
 package com.daniellorenz.spring.rest.payroll.employee;
 
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,7 +13,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Setter
 public class Employee {
 

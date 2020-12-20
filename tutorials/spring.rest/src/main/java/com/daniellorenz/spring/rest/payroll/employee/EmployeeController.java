@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 public class EmployeeController {
@@ -29,7 +28,8 @@ public class EmployeeController {
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
         return CollectionModel.of(employees,
-                linkTo(methodOn(EmployeeController.class).findAll()).withSelfRel());
+                linkTo(methodOn(EmployeeController.class).findAll()).withSelfRel()
+                        .andAffordance(afford(methodOn(EmployeeController.class).createEmployee(null))));
     }
 
     @PostMapping(path = "/employees")

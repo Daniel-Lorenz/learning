@@ -7,10 +7,7 @@ class EmployeeTest {
 
     @Test
     void should (){
-        Employee daniel = new Employee();
-        daniel.setId(1L);
-        daniel.setLastName("daniel");
-        daniel.setRole("sleepy joe");
+        Employee daniel = new Employee(1L, "lorenz", "daniel", "sleepy joe");
 
         System.out.println(daniel.toString());
 
