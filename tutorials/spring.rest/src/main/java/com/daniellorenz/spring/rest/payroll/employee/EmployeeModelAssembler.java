@@ -1,5 +1,6 @@
 package com.daniellorenz.spring.rest.payroll.employee;
 
+import com.daniellorenz.spring.rest.payroll.manager.ManagerController;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,9 @@ public class EmployeeModelAssembler implements RepresentationModelAssembler<Empl
                 linkTo(methodOn(EmployeeController.class).findOne(employee.getId())).withSelfRel()
                         .andAffordance(afford(methodOn(EmployeeController.class).upsertOne(null, employee.getId())))
                         .andAffordance(afford(methodOn(EmployeeController.class).deleteEmployee(employee.getId()))),
-                linkTo(methodOn(EmployeeController.class).findAll()).withRel("employees"));
+                linkTo(methodOn(ManagerController.class).findOneByEmployeeId(employee.getId())).withRel("managers"),
+                linkTo(methodOn(EmployeeController.class).findAll()).withRel("employees")
+                        .andAffordance(afford(methodOn(EmployeeController.class).createEmployee(null))));
     }
 
 }

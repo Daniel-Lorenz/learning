@@ -16,10 +16,12 @@ public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeModelAssembler assembler;
+    private final EmployeeManagerAssembler employeeManagerAssembler;
 
-    public EmployeeController(EmployeeRepository employeeRepository, EmployeeModelAssembler assembler) {
+    public EmployeeController(EmployeeRepository employeeRepository, EmployeeModelAssembler assembler, EmployeeManagerAssembler employeeManagerAssembler) {
         this.employeeRepository = employeeRepository;
         this.assembler = assembler;
+        this.employeeManagerAssembler = employeeManagerAssembler;
     }
 
     @GetMapping(path = "/employees")
@@ -73,5 +75,28 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/managers/{id}/employees")
+    public ResponseEntity<?> findAllByManagerId(@PathVariable Long id) {
+        return ResponseEntity.ok(assembler.toCollectionModel(employeeRepository.findByManagerId(id)));
+    }
 
+    @GetMapping("/employees/detailed")
+    ResponseEntity<?> findAllDetailedEmployees() {
+        return ResponseEntity.ok(
+                employeeManagerAssembler.toCollectionModel(
+                        employeeRepository.findAll().stream()
+                                .map(EmployeeWithManager::new)
+                                .collect(Collectors.toList())));
+    }
+
+    @GetMapping("/employees/{id}/detailed")
+    ResponseEntity<?> findOneDetailedEmployee(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                employeeManagerAssembler.toModel(
+                        employeeRepository.findById(id)
+                                .map(EmployeeWithManager::new)
+                                .orElseThrow(() -> new EmployeeNotFoundException(id))
+                ));
+
+    }
 }

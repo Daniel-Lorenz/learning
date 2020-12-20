@@ -1,6 +1,8 @@
 package com.daniellorenz.spring.rest.payroll.employee;
 
 
+import com.daniellorenz.spring.rest.payroll.manager.Manager;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,14 +29,23 @@ public class Employee {
     private String firstName;
     private String role;
 
-    public Employee(String firstName, String lastName, String role) {
+    @JsonIgnore
+    @OneToOne
+    private Manager manager;
+
+    public Employee(String firstName, String lastName, String role, Manager manager) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.manager = manager;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Manager getManager() {
+        return manager;
     }
 
     public Optional<String> getName() {
