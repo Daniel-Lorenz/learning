@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.mockito.Mockito.verify;
@@ -19,7 +20,7 @@ class WriterTest {
     }
 
     @Test
-    void shouldPrintResult_whenAskedToDoSo() {
+    void shouldPrintResult_whenAskedToDoSo() throws IOException {
         cut.write("hello world");
 
         verify(mockedOut).print("hello world");

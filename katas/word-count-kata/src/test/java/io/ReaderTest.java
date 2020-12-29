@@ -3,50 +3,48 @@ package io;
 import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.given;
 
 class ReaderTest {
 
+    private final String HELLO_WORLD = "hello world";
     Reader cut;
-    BufferedReader mockedBufferedReader = Mockito.mock(BufferedReader.class);
+    BufferedInputStream in;
+
 
     @BeforeEach
     void setup() {
-        cut = new Reader();
+        var is = new ByteArrayInputStream(HELLO_WORLD.getBytes());
+        in = new BufferedInputStream(is);
+        cut = new Reader(in);
     }
 
     @Test
-    void givenReadingFromInputStreamIsSuccessful_shouldReturnTrySuccess_whenReadingEverything() throws IOException {
-        given(mockedBufferedReader.readLine()).willReturn("hello word");
+    void givenReadingFromInputStreamIsSuccessful_shouldReturnTrySuccess_whenReadingEverything() {
 
-        Try<String> actual = cut.readLine(mockedBufferedReader);
+        Try<String> actual = cut.readLine();
 
         assertThat(actual.isSuccess()).isTrue();
     }
 
     @Test
-    void givenReadingFromInputStreamIsSuccessful_shouldReturnExpectedString_whenReadingEverything() throws IOException {
-        given(mockedBufferedReader.readLine()).willReturn("hello world");
+    void givenReadingFromInputStreamIsSuccessful_shouldReturnExpectedString_whenReadingEverything() {
 
-        Try<String> actual = cut.readLine(mockedBufferedReader);
+        Try<String> actual = cut.readLine();
 
-        assertThat(actual.get()).isEqualTo("hello world");
+        assertThat(actual.get()).isEqualTo(HELLO_WORLD);
     }
 
     @Test
     void givenReadingFromInputStreamFailsBecauseOfIoException_shouldReturnTryFailure_whenReadingEverything() throws IOException {
-        given(mockedBufferedReader.readLine()).willThrow(new IOException());
+        in.close();
 
-        Try<String> actual = cut.readLine(mockedBufferedReader);
+        Try<String> actual = cut.readLine();
 
         assertThat(actual.isFailure()).isTrue();
     }
